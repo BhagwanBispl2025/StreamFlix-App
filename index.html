@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix - Unlimited Movies & Web Series | Official Android App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF2E51;
+            --primary-glow: rgba(255, 46, 81, 0.4);
+            --accent: #9B51E0;
+            --bg-dark: #08080C;
+            --bg-card: #12121A;
+            --bg-card-hover: #1A1A26;
+            --text-main: #FFFFFF;
+            --text-sub: #A0A0B2;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Ambient Glow Background */
+        .ambient-glow {
+            position: fixed;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary-glow) 0%, rgba(155, 81, 224, 0.2) 50%, transparent 70%);
+            filter: blur(100px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navbar */
+        nav {
+            padding: 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 900;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .btn-github {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: #fff !important;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-github:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 90px 0 60px;
+            text-align: center;
+        }
+
+        .badge-version {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(255, 46, 81, 0.12);
+            border: 1px solid rgba(255, 46, 81, 0.3);
+            border-radius: 30px;
+            color: #FF5A76;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .badge-pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.7; }
+        }
+
+        .hero h1 {
+            font-size: 54px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #FF2E51 0%, #FF758C 50%, #9B51E0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-sub);
+            max-width: 680px;
+            margin: 0 auto 36px;
+        }
+
+        /* Download CTAs */
+        .cta-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .btn-download-primary {
+            padding: 16px 36px;
+            background: linear-gradient(135deg, var(--primary) 0%, #D81B60 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 30px var(--primary-glow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-download-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 46, 81, 0.6);
+        }
+
+        .download-info {
+            font-size: 13px;
+            color: var(--text-sub);
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            align-items: center;
+        }
+
+        /* Features Grid */
+        .features {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 32px;
+            border-radius: 18px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 46, 81, 0.4);
+            background: var(--bg-card-hover);
+        }
+
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: rgba(255, 46, 81, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--text-sub);
+            font-size: 14.5px;
+        }
+
+        /* Install Steps */
+        .install-guide {
+            padding: 60px 0;
+            background: #0E0E14;
+            border-radius: 24px;
+            margin: 40px 0;
+            border: 1px solid var(--border);
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            padding: 30px;
+        }
+
+        .step-item {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #fff;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .step-item h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .step-item p {
+            font-size: 13.5px;
+            color: var(--text-sub);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-sub);
+            font-size: 14px;
+        }
+
+        @media(max-width: 768px) {
+            .hero h1 { font-size: 38px; }
+            .hero p { font-size: 15px; }
+            .btn-download-primary { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <nav>
+            <a href="#" class="logo">
+                <div class="logo-icon">🎬</div>
+                StreamFlix
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#install">Install Guide</a>
+                <a href="https://github.com/BhagwanBispl2025/StreamFlix-App" target="_blank" class="btn-github">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    GitHub
+                </a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="badge-version">
+                <span class="badge-pulse"></span>
+                <span>Latest Release v1.0.0 (Official APK)</span>
+            </div>
+            <h1>Unlimited Movies & Series.<br><span class="gradient-text">Stream Online & Watch Offline.</span></h1>
+            <p>Experience ultra-fast 5 MB/s downloads, crystal-clear 1080P/4K HDR streaming, YouTube-style player gestures, and seamless offline episode switching.</p>
+
+            <div class="cta-group">
+                <a id="downloadBtn" href="https://github.com/BhagwanBispl2025/StreamFlix-App/releases/latest" class="btn-download-primary">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download Official APK</span>
+                </a>
+            </div>
+
+            <div class="download-info">
+                <span>📱 Android 7.0+</span>
+                <span>⚡ Version 1.0.0</span>
+                <span>🛡️ 100% Virus & Adware Free</span>
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section class="features" id="features">
+            <div class="section-title">
+                <h2>Engineered For Pure Entertainment</h2>
+                <p style="color: var(--text-sub);">Every feature is crafted to give you the ultimate cinema experience on Android.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>5+ MB/s High-Speed Engine</h3>
+                    <p>Bypasses all Indian ISP throttling (Jio/Airtel/Vi) with our custom direct multi-stream proxy engine for lightning-fast downloads.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📥</div>
+                    <h3>100% Offline Video Player</h3>
+                    <p>Watch downloaded movies and web series episodes straight from device storage with zero buffering and zero internet dependency.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📺</div>
+                    <h3>YouTube-Style Gestures</h3>
+                    <p>Swipe up in landscape for episodes tray, swipe left/right for volume & brightness, double tap for 10s seek, and long press for 2X fast forward.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>GitHub In-App Auto Updates</h3>
+                    <p>Never worry about manual installs. The app automatically checks GitHub Releases and updates itself with one tap.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🕒</div>
+                    <h3>Smart Watch History & Resume</h3>
+                    <p>Never lose your spot. Automatically tracks your exact timestamp across all movies and series episodes with instant auto-resume.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💎</div>
+                    <h3>HDR 10-Bit Color Pipeline</h3>
+                    <p>Enjoy deep blacks, vibrant highlights, and studio-grade color rendering on AMOLED and OLED smartphone displays.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Install Guide -->
+        <section class="install-guide" id="install">
+            <div class="section-title">
+                <h2>Quick 3-Step Installation</h2>
+                <p style="color: var(--text-sub);">How to install StreamFlix on your Android smartphone or Android TV</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <h4>Download APK</h4>
+                    <p>Tap the download button above to get the latest <code>app-release.apk</code>.</p>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <h4>Allow Unknown Apps</h4>
+                    <p>When prompted by Android, allow "Install Unknown Apps" from your browser settings.</p>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <h4>Open & Stream</h4>
+                    <p>Tap Install, launch StreamFlix, and start enjoying unlimited movies and series!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2026 StreamFlix. Open source & maintained by <a href="https://github.com/BhagwanBispl2025" style="color: var(--primary); text-decoration: none;">BhagwanBispl2025</a>.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Dynamically fetch latest APK download URL from GitHub API
+        const repo = 'BhagwanBispl2025/StreamFlix-App';
+        fetch(`https://api.github.com/repos/${repo}/releases/latest`)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.assets) {
+                    const apkAsset = data.assets.find(a => a.name.endsWith('.apk'));
+                    if (apkAsset && apkAsset.browser_download_url) {
+                        const btn = document.getElementById('downloadBtn');
+                        btn.href = apkAsset.browser_download_url;
+                        btn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Download APK (${(apkAsset.size / (1024 * 1024)).toFixed(1)} MB)</span>`;
+                    }
+                }
+            })
+            .catch(() => {});
+    </script>
+</body>
+</html>
